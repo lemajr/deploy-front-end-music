@@ -13,6 +13,8 @@ interface Track {
   audio: string;
 }
 
+export const dynamic = 'force-dynamic';
+
 export default function Player() {
   const searchParams = useSearchParams();
   const genre = searchParams.get('genre');
