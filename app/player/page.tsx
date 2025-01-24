@@ -20,7 +20,7 @@ export default function Player() {
           const results = await fetchMusicByGenre(genre);
           setTracks(results);
         }
-      } catch (error) {
+      } catch (err: any) {
         setError('Failed to fetch music tracks.');
       } finally {
         setLoading(false);
