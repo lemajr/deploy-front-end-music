@@ -5,10 +5,18 @@ import { useSearchParams } from 'next/navigation';
 import { fetchMusicByGenre } from '@/lib/actions/fetchMusic';
 import Image from 'next/image';
 
+interface Track {
+  id: string;
+  album_image: string;
+  name: string;
+  artist_name: string;
+  audio: string;
+}
+
 export default function Player() {
   const searchParams = useSearchParams();
   const genre = searchParams.get('genre');
-  const [tracks, setTracks] = useState<any[]>([]);
+  const [tracks, setTracks] = useState<Track[]>([]);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -17,10 +25,10 @@ export default function Player() {
       try {
         if (genre) {
           setLoading(true);
-          const results = await fetchMusicByGenre(genre);
+          const results: Track[] = await fetchMusicByGenre(genre);
           setTracks(results);
         }
-      } catch (err: any) {
+      } catch {
         setError('Failed to fetch music tracks.');
       } finally {
         setLoading(false);
@@ -44,13 +52,19 @@ export default function Player() {
           {tracks.map((track) => (
             <div key={track.id} className="bg-white p-4 shadow-md rounded">
               <Image
-                src={track.album_image || 'default-cover.jpg'}
+                src={track.album_image || '/default-cover.jpg'}
                 alt={track.name || 'Unknown Track'}
                 className="w-full h-40 object-cover mb-2 rounded"
+                width={500}
+                height={160}
               />
               <h2 className="font-bold">{track.name || 'Unknown Title'}</h2>
               <p className="text-sm text-gray-500">{track.artist_name || 'Unknown Artist'}</p>
-              <audio controls   src={track.audio || undefined} className="mt-2 w-full" />
+              <audio
+                controls
+                src={track.audio || undefined}
+                className="mt-2 w-full"
+              />
             </div>
           ))}
         </div>
