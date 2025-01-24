@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { fetchMusicByGenre } from '@/lib/actions/fetchMusic';
+import Image from 'next/image';
 
 export default function Player() {
   const searchParams = useSearchParams();
@@ -42,7 +43,7 @@ export default function Player() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {tracks.map((track) => (
             <div key={track.id} className="bg-white p-4 shadow-md rounded">
-              <img
+              <Image
                 src={track.album_image || 'default-cover.jpg'}
                 alt={track.name || 'Unknown Track'}
                 className="w-full h-40 object-cover mb-2 rounded"
