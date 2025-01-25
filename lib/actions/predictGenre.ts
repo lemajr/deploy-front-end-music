@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BACKEND_API_BASE_URL = 'http://127.0.0.1:8000/api';
+const BACKEND_API_BASE_URL = 'https://deploy-backend-music-production.up.railway.app/api';
 
 export const predictGenre = async (age: number, gender: string) => {
   try {
