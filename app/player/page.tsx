@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { fetchMusicByGenre } from '@/lib/actions/fetchMusic';
 import Image from 'next/image';
 
+export const dynamic = 'force-dynamic'; // Disable prerendering
+
 interface Track {
   id: string;
   album_image: string;
@@ -12,8 +14,6 @@ interface Track {
   artist_name: string;
   audio: string;
 }
-
-export const dynamic = 'force-dynamic';
 
 export default function Player() {
   const searchParams = useSearchParams();
@@ -30,7 +30,8 @@ export default function Player() {
           const results: Track[] = await fetchMusicByGenre(genre);
           setTracks(results);
         }
-      } catch {
+      } catch (err) {
+        console.error(err);
         setError('Failed to fetch music tracks.');
       } finally {
         setLoading(false);
@@ -40,7 +41,7 @@ export default function Player() {
   }, [genre]);
 
   if (!genre) {
-    return <p className="text-center mt-10">Loading genre...</p>;
+    return <p className="text-center mt-10">No genre selected. Please select a genre.</p>;
   }
 
   return (
