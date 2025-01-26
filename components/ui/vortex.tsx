@@ -236,7 +236,6 @@ export const Vortex = (props: VortexProps) => {
     });
   }, [resize, setup]);
 
-
   
   return (
     <div className={cn("relative h-full w-full", props.containerClassName)}>
