@@ -59,7 +59,7 @@ export default function Player() {
   return (
     <div className="bg-[url('/player-bg.jpg')] bg-cover bg-center">
       <div className="container mx-auto min-h-screen p-6">
-        <Link href={"/"} className="text-2xl font-bold mb-4 flex gap-2"> <TbPlayerPlay className='bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-md p-2 w-8 h-8 text-white' />
+        <Link href={"/"} className="text-2xl font-bold mb-4 flex gap-2 sticky top-0 z-10 drop-shadow-md"> <TbPlayerPlay className='bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-md p-2 w-8 h-8 text-white' />
           <AnimatedShinyTextComponent genre={genre} />
         </Link>
         {error && <p className="text-red-500">{error}</p>}
