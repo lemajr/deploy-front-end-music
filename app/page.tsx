@@ -67,7 +67,7 @@ export default function Home() {
         <source src="video.mp4" type="video/mp4" />
       </video>
 
-      <div className="absolute flex gap-48 max-md:flex-col items-center justify-center h-full w-full bg-gradient-to-r from-black to-transparent p-6 shadow-md rounded-lg">
+      <div className="absolute flex gap-48 max-md:flex-col items-center justify-center h-full w-full bg-gradient-to-r from-black to-transparent p-6 shadow-md">
       <div className='max-md:hidden'>
           <Header />
 
