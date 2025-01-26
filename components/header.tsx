@@ -14,7 +14,7 @@ const Header = () => {
   </BoxReveal>
 
   <BoxReveal boxColor={"#5046e6"} duration={0.5}>
-    <h2 className="mt-[.5rem] text-[1rem] max-md:hidden">
+    <h2 className="mt-[.5rem] text-[1rem]">
       Discover personalized music with{" "}
       <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block bg-clip-text text-transparent ">
         AI-powered Genre Prediction

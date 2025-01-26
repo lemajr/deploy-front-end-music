@@ -122,7 +122,7 @@ export const Vortex = (props: VortexProps) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    let i2 = 1 + i,
+    const i2 = 1 + i,
       i3 = 2 + i,
       i4 = 3 + i,
       i5 = 4 + i,
@@ -234,8 +234,10 @@ export const Vortex = (props: VortexProps) => {
         resize(canvas, ctx);
       }
     });
-  }, []);
+  }, [resize, setup]);
 
+
+  
   return (
     <div className={cn("relative h-full w-full", props.containerClassName)}>
       <motion.div
