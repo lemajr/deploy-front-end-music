@@ -4,6 +4,11 @@ import { useEffect, useState } from 'react';
 import { fetchMusicByGenre } from '@/lib/actions/fetchMusic';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
+import Loader from './loader';
+import { TbPlayerPlay } from "react-icons/tb";
+import Link from 'next/link';
+import AnimatedShinyTextComponent from './HeadingShine';
+import { motion } from 'framer-motion';
 
 interface Track {
   id: string;
@@ -41,16 +46,41 @@ export default function Player() {
     return <p className="text-center mt-10">Please select a genre to get started.</p>;
   }
 
+  const parentVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+  };
+
+  const childVariants = {
+    initial: { opacity: 0, y: 50 },
+    animate: { opacity: 1, y: 0 },
+  };
+  
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-2xl font-bold mb-4">Music Player - Genre: {genre}</h1>
-      {error && <p className="text-red-500">{error}</p>}
-      {loading ? (
-        <p className="text-center mt-10">Loading tracks...</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="bg-[url('/player-bg.jpg')] bg-cover bg-center">
+      <div className="container mx-auto min-h-screen p-6">
+        <Link href={"/"} className="text-2xl font-bold mb-4 flex gap-2"> <TbPlayerPlay className='bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-md p-2 w-8 h-8 text-white' />
+          <AnimatedShinyTextComponent genre={genre} />
+        </Link>
+        {error && <p className="text-red-500">{error}</p>}
+        {loading ? (
+          <Loader />
+        ) : (
+
+          <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          variants={parentVariants}
+          initial="initial"
+          animate="animate"
+          transition={{ duration: 0.5, staggerChildren: 0.1 }} // Staggered by 0.1s
+        >
           {tracks.map((track) => (
-            <div key={track.id} className="bg-white p-4 shadow-md rounded">
+           <motion.div
+           key={track.id}
+           className="bg-white p-4 shadow-md rounded"
+           variants={childVariants}
+           transition={{ duration: 0.9, delayChildren: 0.1 }}
+         >
               <Image
                 src={track.album_image || '/default-cover.jpg'}
                 alt={track.name || 'Unknown Track'}
@@ -65,10 +95,13 @@ export default function Player() {
                 src={track.audio || undefined}
                 className="mt-2 w-full"
               />
-            </div>
+            </motion.div>
           ))}
-        </div>
-      )}
+        </motion.div>
+        )}
+      </div>
     </div>
   );
 }
+
+
